@@ -1,0 +1,28 @@
+<div class="container">
+<h4>Book Name : <%=@barrowingbook.book.name %></h4>
+<h4>Barrowed Date : <%=@barrowingbook.barrowing_date %></h4>
+<% if @barrowingbook.date_returned == nil %>
+<h4>Due date : <%=@barrowingbook.due_date %></h4>
+<% end %>
+
+<% if @barrowingbook.date_returned!= nil %>
+<h4>Date Returned :<%=@barrowingbook.date_returned %></h4>
+<% end %>
+
+<% if current_user.role == "librarian" %> 
+<h2><%=link_to "Edit",edit_barrowingbook_path(@barrowingbook.id),class: "btn btn-primary" %></h2>
+<h2><%=link_to "Delete",barrowingbook_path(@barrowingbook.id),data:{method: :delete,confirm: "Are you sure?"},class: "btn btn-primary"  %></h2>
+<% end %>
+
+ 
+<h3><%=link_to "Back",barrowingbooks_path,class: "btn btn-primary" %></h3>
+
+
+<% if current_user.role == "librarian" %> 
+	<% if @barrowingbook.date_returned == nil%>
+		<%= link_to "Book Returned",barrowingbooks_returned_path(barrowingbook_id: @barrowingbook.id) %>
+		
+<% end %>
+<% end %>
+</div>
+

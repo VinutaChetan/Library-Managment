@@ -1,0 +1,13 @@
+<div class="container">
+<h4>Email: <%=@review.user.email %></h4>
+<h4> Book Name: <%=@review.book.name %></h4>
+<h4>Rating : <%=@review.rating %></h4>
+<h4>Body :<%=@review.body%></h4>
+
+<% if current_user.role == "librarian" %> 
+
+<h2><%=link_to "Delete",review_path(@review.id),data:{method: :delete,confirm: "Are you sure?"},class: "btn btn-primary"  %></h2>
+<% end %>
+
+<h3><%=link_to "Back",reviews_path,class: "btn btn-primary" %></h3>
+

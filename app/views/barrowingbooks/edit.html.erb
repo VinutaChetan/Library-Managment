@@ -1,0 +1,30 @@
+<h2>Edit Barrowing_books</h2>
+
+<div class="container">
+
+<b><%= link_to "Back",barrowingbooks_path,class: "btn btn-success"%></b><br/>
+<br/>
+<%= form_for @barrowingbook do |f|%>
+<% if @barrowingbook.errors.any? %>
+<h4>These errors prohibited the form from being saved: %>
+	<% @barrowingbook.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+	<% end %>
+<% end %>
+
+<lable>Used_id</lable><br/>
+<%= f.text_field :user_id %><br/>	
+
+<lable>Book_id</lable><br/>
+<%= f.text_field :book_id %><br/>	
+
+
+<br/>
+
+
+<%=f.submit %>
+
+
+<% end %>
+</div>
+

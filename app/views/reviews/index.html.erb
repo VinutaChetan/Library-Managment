@@ -1,0 +1,51 @@
+<div class="row">
+<div class="col-md-8">
+<div class="page_header">
+	<center><h2>Reviews</h2></center>	
+</div>
+	
+<script>
+$(document).ready(function(){
+    $('#myTable').DataTable();
+});
+</script>
+
+<% if @reviews.empty? %>
+	<h4>No reviews found </h4>
+<% else %>
+	
+<div class="container">
+<center><table class="table table-striped" id="myTable">
+<thead>
+	<tr> 
+	<b>
+	<th>Email</th>
+	<th>Book Name</th>
+	<th>Body</th>
+	<th>Ratings</th>
+	<th>Show</th>
+	</b>
+	</tr>
+</thead>
+
+<%@reviews.each do |review| %>
+<tr>
+	<td><%=review.user.email%></td>
+	<td><%=review.book.name%></td>
+	<td><%=review.body%></td>
+	<td><%=review.rating%></td>
+	<td><%=link_to review_path(review.id) do %>
+		  <span class="glyphicon glyphicon-eye-open"> </span>
+		  <%end %>
+	</td>
+
+</tr>
+<% end %>
+
+</table>
+</center>
+<% end %>
+
+<%= link_to "Add Ratings", new_review_path, class:"btn btn-primary"%>
+</div>
+</div>			

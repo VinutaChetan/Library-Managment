@@ -1,0 +1,90 @@
+<div class="row">
+<div class="container">
+  	 
+     <div class="page-header">
+     <h1>Listing Books</h1>
+     </div>
+     
+<script>
+$(document).ready(function(){
+    $('#myTable').DataTable();
+});
+
+</script>
+
+<% if @books.empty? %>
+	<p> No Books Found </p>
+<% else %>
+<h4>Total books :<%=@books.size%></h4>
+
+
+<br/>
+
+
+<table class ="table table-striped" id="myTable">
+<thead>
+	<tr>
+	<b>
+		<th>#</th>
+		<th>Name</th>
+		<th>Price</th>
+		<th>Author name</th>
+		<th>pages</th>
+		<th>Description</th>
+		<th>Categoty name</th>
+		<th>ISBN</th>
+		<th>Rating</th>
+		<th>Borrow limit</th>
+		<th>Numbers available</th>
+		<th>Actions</th>
+	</b>	
+	</tr>
+</thead>
+<tbody>
+	<%@books.each do |book|%>
+	<tr>
+		<td> <%= book.id %></td>
+		  <td><%=book.name%></td>
+		  <td><%=book.price%></td>
+		  <td><%=book.author_name%></td>
+		  <td><%=book.pages%></td>
+		  <td><%=book.description%></td>
+		  <td><%=book.category_name%></td>
+		  <td><%=book.isbn%></td>
+		  <% if (book.reviews.count) != 0 %>
+			<td><%=(book.reviews.sum(:rating)/(book.reviews.count)) %></td>
+		  <% else %>
+		  	<td><%= 0 %></td>
+		  <%end%>	
+
+		  <td><%=book.borrow_limit%></td>
+		  <td><%=book.numbers_available%></td>
+		  <td><%=link_to book_path(book.id) do %>
+		  	<span class="glyphicon glyphicon-eye-open"></span>
+		  	<%end %>
+		  </td>
+
+	</tr>
+	<%end%>
+</tbody>
+</table >
+<% end %> 
+<br/>
+<br/>
+
+<% if can? :create, Book.new %>
+	<%= link_to "Add Book", new_book_path, class:"btn btn-primary"%>
+<% end %>	
+
+<b><%= link_to "Back",categories_path,class: "btn btn-success"  %></b>
+<br/>
+
+
+
+
+</div>
+</div>
+
+
+
+

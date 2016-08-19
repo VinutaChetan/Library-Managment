@@ -1,0 +1,74 @@
+<div class="row">
+  <div class ="col-md-8">
+     <div class="page-header">
+<center><h1>Listing Categories</h1></center>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('#myTable').DataTable();
+});
+</script>
+
+
+<% if @categories.empty? %>
+	<%= No category found %>
+<% else %>
+<h2>Total categories = <%= @categories.size %></h2>
+
+
+<div class="container">
+<center><table class ="table table-striped" id="myTable">
+
+	<thead>
+	
+
+		<tr><br>
+			<th>Id</th>
+			<th>Name</th>
+			<th >Created at</th>
+			<th>Updated at</th>
+			<th>Actions</th>
+			
+		</tr>
+	</thead>
+
+
+
+<% @categories.each do |cat|%>
+<tr>
+  <td> <%=cat.id %></td>
+  <td><%=cat.name%></td>
+  <td><%=cat.created_at%></td>
+  <td><%=cat.updated_at%></td>
+  <td><%=link_to category_path(cat.id) do %>
+		  <span class="glyphicon glyphicon-eye-open"> </span>
+		  <%end %>
+	</td>
+
+</tr>
+
+<% end %> 
+</table >
+</center>
+<%end%>
+
+<%=link_to "All Books" ,books_path ,class: "btn btn-success" %>
+
+
+<% if can? :create, Category.new %>
+	<%= link_to "Add Category", new_category_path, class:"btn btn-primary"%>
+<% end %></h2>	
+
+
+<% data={}
+	@categories.each do |cat|
+		data[cat.name] = cat.books.size
+	end %>	
+
+<% data %>
+<%=column_chart(data) %>
+
+</div>
+
+

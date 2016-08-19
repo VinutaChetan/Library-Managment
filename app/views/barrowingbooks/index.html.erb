@@ -1,0 +1,97 @@
+<div class="row">
+<div class="container">
+  	 
+     <div class="page-header">
+     <h1>Listing Borrowed books</h1>
+     </div>
+
+
+<br/>
+<script>
+$(document).ready(function(){
+    $('#myTable').DataTable();
+});
+</script>
+
+
+<% if @barrowingbooks.empty? %>
+	<p> No Books Found </p>
+<% else %>
+<h4>Total books :<%=@barrowingbooks.size%></h4>
+
+
+<br/>
+
+
+<table class ="table table-striped">
+<thead>
+	<tr>
+	<b>
+		<th>#</th>
+		<th>Book Name</th>
+		<th>Email</th>
+		<th>Borrowed Date</th>
+		<th>Due Date</th>
+		<th>Date Returned</th>
+		<th>Price</th>
+		<th>Actions</th>
+	</b>	
+	</tr>
+</thead>
+<tbody>
+	<%@barrowingbooks.each_with_index do |barrowingbook,index|%>
+	<tr>
+		<td> <%=index+1 %></td>
+		  <td><%=barrowingbook.book.name %></td>
+		  <td><%=barrowingbook.user.email %></td>
+		  <td><%=barrowingbook.barrowing_date %></td>
+		  <td><%=barrowingbook.due_date%></td>
+		  <td><%=barrowingbook.date_returned %></td>
+		  <% if Date.today>barrowingbook.due_date && barrowingbook.date_returned ==nil  %>
+		  	<td><%= 5*(Date.today-barrowingbook.due_date).to_i%></td>
+		  <% else %>
+		  	<td> 0 </td>	
+		  <% end %>	
+		  
+		  <td><%= %></td>
+		  <td><%=link_to barrowingbook_path(barrowingbook.id) do %>
+		  	<span class="glyphicon glyphicon-eye-open"></span>
+		  	<%end %>
+		  </td>
+
+	</tr>
+	<%end%>
+</tbody>
+</table >
+<% end %>
+
+
+<% if can? :create, Barrowingbook.new %>
+	<%= link_to "Add Barrowingbook", new_barrowingbook_path, class:"btn btn-primary"%>
+<% end %>	
+ 
+
+
+<h3>Over Due </h3>
+<%@barrowingbooks.each do |barrowingbook|%>
+	<% date = barrowingbook.due_date %>
+	
+	<% if (date < Date.today) && barrowingbook.date_returned==nil %>
+		<%= barrowingbook.book.name %>
+		<br/>
+	<% end %>
+<% end %>
+
+<h3>Still Valid Books</h3>
+<%@barrowingbooks.each do |barrowingbook|%>	
+<% date = barrowingbook.due_date %>
+	<% 	if (date >= Date.today) %>
+		 <%= barrowingbook.book.name %>
+		<br/>
+	<% end %>		
+<%end %>
+<br/>
+
+</div>
+</div>
+

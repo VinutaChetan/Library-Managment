@@ -1,0 +1,20 @@
+<h2>Add Categories</h2>
+
+<%= form_for @category do |f|%>
+<% if @category.errors.any? %>
+<h4>These errors prohibited the form from being saved: </h4>
+<ul style="color:red;">
+	<% @category.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+	<% end %>
+</ul>
+<% end %>
+
+<lable>Name</lable><br/>
+<%= f.text_field :name %><br/>
+
+<%=f.submit %>
+<% end %>	
+
+<h2><%=link_to "Back" ,categories_path,class: "btn btn-success"  %></h2>
+

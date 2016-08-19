@@ -1,0 +1,48 @@
+<center><h1>All Books</h1></center>
+<table border = "1">
+	<thead >
+	<thead bgcolor = "brown">
+
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th >Price</th>
+			<th>Author_name</th>
+			<th>pages</th>
+			<th>Description</th>
+			<th>Contents</th>
+			<th>ISBN</th>
+			<th>Rating</th>
+			<th>Borrow_limit</th>
+			<th>Numbers_available</th>
+		</tr>
+	</thead>
+
+<% color = 0 %>
+
+<% @books.each do |book|%>
+<% if color == 0 %>
+		<tr bgcolor = "lightgrey" >
+		<% color = 1 %>
+	<% else %>
+		<% color =0 %>			
+	<tr>
+<tr>
+
+<%end%>
+  <td> <%= book.id %></td>
+  <td><%=book.name%></td>
+  <td><%=book.price%></td>
+  <td><%=book.author_name%></td>
+  <td><%=book.pages%></td>
+  <td><%=book.description%></td>
+  <td><%=book.contents%></td>
+  <td><%=book.isbn%></td>
+  <td><%=book.rating%></td>
+  <td><%=book.borrow_limit%></td>
+  <td><%=book.numbers_available%></td>
+
+</tr>
+
+<% end %> 
+</table >

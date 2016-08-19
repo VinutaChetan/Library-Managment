@@ -1,0 +1,33 @@
+<h2>Add Barrowing books</h2>
+
+<div class="container">
+
+
+<br/>
+<%= form_for @barrowingbook do |f|%>
+<% if @barrowingbook.errors.any? %>
+<h4>These errors prohibited the form from being saved: %>
+	<% @barrowingbook.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+	<% end %>
+<% end %>
+
+<lable>Used Id</lable><br/>
+<%= f.text_field :user_id %><br/>	
+
+<lable>Book Id</lable><br/>
+
+<%= f.collection_select :book_id,Book.order(:name),:id,:name,prompt:"select books" %>
+<br/>
+<br/>
+
+<%=f.submit %>
+<br/>
+
+
+<% end %>
+<br/>
+<b><%= link_to "Back",barrowingbooks_path,class: "btn btn-success"%></b><br/>
+
+</div>
+

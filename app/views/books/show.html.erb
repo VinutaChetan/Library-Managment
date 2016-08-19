@@ -1,0 +1,45 @@
+<div class="container">
+<h3><%= @book.name %></h3>
+<h4>Price :<%= @book.price %> </h4>
+<h4>Author_name: <%=@book.author_name %></h4>
+<h4>Pages : <%=@book.pages %> </h4>
+<h4>Description : <%=@book.description%></h4>
+<h4>Category :
+<% @book.categories.each do |category| %>
+	<%= category.name %>
+<% end %></h4>
+
+<h4>ISBN :<%=@book.isbn %> </h4>
+<h4>Rating :<%=@book.rating%></h4>
+<h4>Borrow_limit: <%=@book.borrow_limit%> </h4> 
+<h4>Numbers_available :<%=@book.numbers_available%></h4>
+
+
+<% @book.categories.each do |category| %>
+	<%= category.name %>
+<% end %><br/>
+
+<h4>*****Ratings***** <h2>
+<h4>Number of Reviews : <%=@book.reviews.count %></h4>
+
+<% total=@book.reviews.sum(:rating) %>
+
+<h4>Rating : </h4>
+<% if (@book.reviews.count) != 0 %>
+<% avg =total/@book.reviews.count %>
+<b><%= avg %></b></h4>
+<% else %>
+<%= 0 %>
+<% end %>
+<br/>
+
+<h4>Users email :</h4>
+<b>
+
+<% @book.barrowingbooks.each do |barrowingbook| %>
+	<%=barrowingbook.user.email %><br/>
+<% end %>	
+
+
+</b>
+</div>

@@ -1,0 +1,29 @@
+<h2>Add Ratings</h2>
+
+<%= form_for @review do |f| %>
+	<% if @review.errors.any? %>
+		<h4>These errors prohibited the form from being saved: </h4>
+	<ul style="color:red;">
+	<% @review.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+	<% end %>
+</ul>
+<% end %>
+
+
+<%=f.collection_select :book_id,Book.order(:name),:id,:name,prompt:"select books"%><br/>
+<br/>
+
+<lable>Body</lable>
+<%= f.text_area :body %><br/>
+<br/>
+
+<lable>Rating </lable>
+<%=f.text_field :rating %><br/>
+<br/>
+
+<%=f.submit%>
+<% end %>
+
+<h2><%=link_to "Back" ,reviews_path,class: "btn btn-success"  %></h2>
+

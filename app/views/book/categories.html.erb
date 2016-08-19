@@ -1,0 +1,36 @@
+<center><h1>Book categories ....<%= link_to "All Books",book_books_path%></h1></center>
+<center>
+<table border = "1">
+	<thead>
+	<thead bgcolor = "brown">
+
+		<tr><br>
+			<th>Id</th>
+			<th>Name</th>
+			<th >Created_at</th>
+			<th>Updated_at</th>
+			
+		</tr>
+	</thead>
+
+<% color = 0 %>
+
+<% @categories.each do |cat|%>
+<% if color == 0 %>
+		<tr bgcolor = "lightgrey" >
+		<% color = 1 %>
+	<% else %>
+		<% color =0 %>			
+	<tr>
+<tr>
+<table= width:100%>
+<%end%>
+  <td> <%= cat.id %></td>
+  <td><%=cat.name%></td>
+  <td><%=cat.created_at%></td>
+  <td><%=cat.updated_at%></td>
+</tr>
+
+<% end %> 
+</table >
+</center>

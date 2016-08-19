@@ -1,0 +1,42 @@
+<h2>Edit Books</h2>
+
+<%= form_for @book do |f|%>
+<% if @book.errors.any? %>
+<h4>These errors prohibited the form from being saved: </h4>
+<ul style="color:red;">
+	<% @book.errors.full_messages each do |msg| %>
+		<li><%= msg %></li>
+	<% end %>
+</ul>
+<% end %>
+
+<lable>Name</lable><br/>
+<%= f.text_field :name %><br/>	
+
+<lable>Price</lable><br/>
+<%= f.text_field :price %><br/>	
+
+<lable>AuthorName</lable><br/>
+<%= f.text_field :author_name %><br/>
+
+<lable>Pages</lable><br/>
+<%= f.text_field :pages %><br/>
+
+<lable>Description</lable><br/>
+<%= f.text_area :description %><br/>
+
+<lable>ISBN</lable><br/>
+<%= f.text_field :isbn %><br/>
+
+<lable>Rating</lable><br/>
+<%= f.text_field :rating %><br/>
+
+<lable>Borrow_limit</lable><br/>
+<%= f.text_field :borrow_limit %><br/>
+
+<lable>Numbers_available</lable><br/>
+<%= f.text_field :numbers_available %><br/>
+
+<%=f.submit %>
+<% end %>
+

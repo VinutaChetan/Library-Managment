@@ -1,0 +1,18 @@
+<h1>Category Name : <%=@category.name %></h1>
+
+<div class="container">
+<% @category.books.each_with_index do |book,index| %>
+	<h3><b><%= index+1 %></b>
+	<%= book.name %></h3>
+	
+<%end %>	
+
+
+	
+<h2><%=link_to "Edit",edit_category_path(@category.id),class: "btn btn-primary" %></h2>
+<h2><%=link_to "Delete",category_path(@category.id),data:{method: :delete,confirm: "Are you sure?"},class: "btn btn-primary"  %></h2>
+<h3><%=link_to "Back",categories_path,class: "btn btn-primary" %></h3>
+
+</div>
+
+
