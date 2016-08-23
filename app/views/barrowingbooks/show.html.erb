@@ -20,9 +20,18 @@
 
 <% if current_user.role == "librarian" %> 
 	<% if @barrowingbook.date_returned == nil%>
-		<%= link_to "Book Returned",barrowingbooks_returned_path(barrowingbook_id: @barrowingbook.id) %>
+			<%= link_to "Book Returned",barrowingbooks_returned_path(barrowingbook_id: @barrowingbook.id) %>
 		
 <% end %>
+
+<% if current_user.role=="librarian"%>
+	<%if @barrowingbook.date_returned == nil%>
+		<%if @barrowingbook.due_date ==Date.today%>
+			<h2>Today is Due Date</h2>
+			<%= link_to "Mail To Return",barrowingbooks_mailtoreturn_path(barrowingbook_id: @barrowingbook.id) %>
+		<%end%>
+	<%end%>		
+<%end%>	
 <% end %>
 </div>
 

@@ -1,0 +1,50 @@
+<div class="row">
+  <div class ="col-md-8">
+     <div class="page-header">
+<center><h1>Listing User Preferences</h1></center>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('#myTable').DataTable();
+});
+</script>
+
+
+<% if @user.preferences.empty? %>
+	No preferences found 
+<% else %>
+
+<h4>Email :<%=@user.email%></h4>
+
+
+<div class="container">
+<center><table class ="table table-striped" id="myTable">
+
+	<thead>
+	
+
+		<tr><br>
+			<th>Id</th>
+			<th >Category Name</th>
+		</tr>
+	</thead>
+
+
+<% @user.categories.each_with_index do |cat,index|%>
+<tr>
+  <td> <%=index+1 %></td>
+  <td><%=cat.name%></td>
+   
+</tr>
+
+<% end %> 
+</table >
+</center>
+<%end%>
+
+  </ul>
+  
+  <%=link_to "Add Users Preference" ,users_preference_path ,class: "btn btn-success" %>
+
+ 

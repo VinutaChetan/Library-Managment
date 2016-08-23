@@ -1,0 +1,96 @@
+<div class="row">
+  <div class ="col-md-8">
+     <div class="page-header">
+<center><h1>Listing Recomended Books</h1></center>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('#myTable').DataTable();
+});
+</script>
+
+
+<% if @user.preferences.empty? %>
+	No Recomendation found 
+<% else %>
+
+
+<div class="container">
+<center><table class ="table table-striped" id="myTable">
+
+	<thead>
+	
+
+		<tr><br>
+			<th>Id</th>
+			<th >Books Name</th>
+		</tr>
+	</thead>
+
+
+<%@user.categories.each_with_index do |cat,index|%>
+<tr>
+	<td><%=index+1%></td>
+	<%cat.books.each do |book|%>
+		<td><%=book.name%></td>
+		<%end%>
+	<tr/>	
+<%end%>
+
+
+
+<% end %> 
+</table >
+</center>
+
+<% user_books = [] %> 
+
+<% @user.categories.each do |category| %>
+ <% user_books.push(category.books.pluck(:name)) %>
+<% end %>
+
+<ol>
+<% user_books.each do |book| %>
+	<li><%= book %></li>
+<% end %> 
+</ol>
+
+
+<%cat=[]%>
+<%cat.push(@user.categories).each do |ca|%>
+<%ca.each do |c|%>
+<%c.books.each do |book|%>
+<%=book.name%><br/>
+<%end%>
+<%end%>
+<%end%>
+<br/>
+
+<%value=[]%>
+<%@user.categories.each do |ca|%>
+<%=ca.name%>
+<ul>
+<li>
+	<%ca.books.each do |book|%>
+	<%=book.name%>
+	<%end%>
+</li>
+</ul>
+<%total=value.push(ca.books)%><br/>
+<%=total%>
+<%total.each do |tol|%>
+<%tol.name%><br/>
+<%end%>
+<%end%>
+
+
+
+
+
+	
+
+
+  
+  
+ 

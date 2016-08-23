@@ -12,6 +12,13 @@ class Notification < ActionMailer::Base
     
     mail to: "#{@barrowingbook.user.email}",cc: "#{user.email}",subject: "Book has been returned!"
   end
+
+  def booktoreturn(barrowingbook,user)
+    @barrowingbook=barrowingbook
+    @user=user
+
+    mail to:"#{@barrowingbook.user.email}",cc:"#{user.email}",subject:"Last date to return book!"
+  end   
 end
 
 

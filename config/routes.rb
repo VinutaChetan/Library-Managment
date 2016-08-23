@@ -1,12 +1,20 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users,:controllers =>{registrations: 'registrations'}
+
 
   get "barrowingbooks/returned"
+  get 'barrowingbooks/mailtoreturn'
   get 'barrowingbooks/recentbook'
+  get 'users/preference'
+  get 'users/recomended'
   
+ 
+
+  resources :users
   resources :books
   resources :categories
+  resources :preferences
 
   
   resources :barrowingbooks

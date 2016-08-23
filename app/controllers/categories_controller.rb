@@ -47,7 +47,10 @@ class CategoriesController < ApplicationController
 		render action :"edit"
 	end
 	end	
+	
+	
 
+	
 	private
 	def category_params
 		params[:category].permit(:name)

@@ -53,6 +53,8 @@ class BooksController < ApplicationController
 	end
 	end	
 
+	
+
 	private
 	def book_params
 		params[:book].permit(:name,:price,:author_name,:pages,:description,:isbn,:rating,:borrow_limit,:numbers_available,category_ids:[])

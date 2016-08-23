@@ -56,8 +56,9 @@ $(document).ready(function(){
 		  <% else %>
 		  	<td><%= 0 %></td>
 		  <%end%>	
-
+		
 		  <td><%=book.borrow_limit%></td>
+
 		  <td><%=book.numbers_available%></td>
 		  <td><%=link_to book_path(book.id) do %>
 		  	<span class="glyphicon glyphicon-eye-open"></span>

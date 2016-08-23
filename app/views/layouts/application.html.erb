@@ -93,6 +93,12 @@
 	            <% end %>
 	            </li>
 
+              <li><%=link_to users_recomended_path do %>
+               <span class ="glyphicon glyphicon-th-list"></span>
+              Recomended Books
+              <% end %>
+              </li>
+
               <li><%=link_to barrowingbooks_path do %>
               <span calss="glyphicon glyphicon-th-list"></span>
               Borrowed Books
@@ -133,7 +139,8 @@
              <li><%=link_to "Account Settings",edit_user_registration_path%></li>
 	            <li><%=link_to "Logout",destroy_user_session_path,method: :delete %></li>
               <li><%=link_to "Recent Borrowed Books",barrowingbooks_recentbook_path%></li>
-              
+              <li><%=link_to "Add User Preference Categories",users_path%></li>
+
           </ul>
         </li>
       </ul>

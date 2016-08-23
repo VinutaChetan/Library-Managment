@@ -19,6 +19,7 @@ $(document).ready(function(){
 <thead>
 	<tr> 
 	<b>
+	<th>Name</th>
 	<th>Email</th>
 	<th>Book Name</th>
 	<th>Body</th>
@@ -30,6 +31,7 @@ $(document).ready(function(){
 
 <%@reviews.each do |review| %>
 <tr>
+	<td><%=review.user.first_name%></td>
 	<td><%=review.user.email%></td>
 	<td><%=review.book.name%></td>
 	<td><%=review.body%></td>

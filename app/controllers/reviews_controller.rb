@@ -1,6 +1,7 @@
 class ReviewsController < ApplicationController
-	#load_and_authorize_resourse
-	#before_action :authenticate_user!
+	
+	before_action :authenticate_user!
+	load_and_authorize_resource
 
 	def index
 		@reviews = Review.all

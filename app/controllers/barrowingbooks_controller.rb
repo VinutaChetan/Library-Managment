@@ -11,10 +11,10 @@ class BarrowingbooksController < ApplicationController
 	end
 	
 	def create
-		
 		@barrowingbook = Barrowingbook.new(barrowingbook_params)
 		@barrowingbook.barrowing_date=Date.today
 		@barrowingbook.due_date=Date.today+5.days
+
 		
 		if @barrowingbook.save
 			redirect_to barrowingbooks_path
@@ -25,7 +25,7 @@ class BarrowingbooksController < ApplicationController
 	end
 
 	def new
-
+		
 		@barrowingbook=current_user.barrowingbooks.new
 
 		
@@ -61,12 +61,22 @@ class BarrowingbooksController < ApplicationController
 		
 		@barrowingbook =Barrowingbook.find(params[:barrowingbook_id])
 		@barrowingbook.update_attributes(date_returned: Date.today)
+		
 
 		Notification.bookreturned(@barrowingbook,current_user).deliver!
 
 		redirect_to barrowingbooks_path,notice:"Returned the book"
 
 	end	
+
+	def mailtoreturn
+		@barrowingbook =Barrowingbook.find(params[:barrowingbook_id])
+		Notification.booktoreturn(@barrowingbook,current_user).deliver!
+
+		redirect_to barrowingbooks_path,notice:"Successfully send the mail to Return the book"
+	end
+
+
 
 	def recentbook
 		#@barrowingbooks =current_user.is_librarian? ? Barrowingbook.all : current_user.barrowingbooks

@@ -5,7 +5,6 @@
      <h1>Listing Borrowed books</h1>
      </div>
 
-
 <br/>
 <script>
 $(document).ready(function(){
@@ -23,7 +22,7 @@ $(document).ready(function(){
 <br/>
 
 
-<table class ="table table-striped">
+<table class ="table table-striped",id="myTable">
 <thead>
 	<tr>
 	<b>
@@ -53,7 +52,6 @@ $(document).ready(function(){
 		  	<td> 0 </td>	
 		  <% end %>	
 		  
-		  <td><%= %></td>
 		  <td><%=link_to barrowingbook_path(barrowingbook.id) do %>
 		  	<span class="glyphicon glyphicon-eye-open"></span>
 		  	<%end %>
@@ -77,19 +75,32 @@ $(document).ready(function(){
 	<% date = barrowingbook.due_date %>
 	
 	<% if (date < Date.today) && barrowingbook.date_returned==nil %>
-		<%= barrowingbook.book.name %>
+		<li><%= barrowingbook.book.name %>=>
+		<%= barrowingbook.user.email%></li><br/>
 		<br/>
 	<% end %>
 <% end %>
 
+<h3>Last Date To Return</h3>
+<%@barrowingbooks.each do |barrowingbook|%>
+	<% date = barrowingbook.due_date%>
+	<%if (date==Date.today) && barrowingbook.date_returned==nil%>
+		<li><%=barrowingbook.book.name%> =>
+		<%=link_to barrowingbook.user.email,barrowingbook_path(barrowingbook.id)%></li><br/>
+	<%end%>
+<%end%>	
+
+
 <h3>Still Valid Books</h3>
 <%@barrowingbooks.each do |barrowingbook|%>	
-<% date = barrowingbook.due_date %>
-	<% 	if (date >= Date.today) %>
-		 <%= barrowingbook.book.name %>
+<% date = barrowingbook.due_date  %>
+	<% 	if (date >=Date.today) && barrowingbook.date_returned==nil%>
+		<li> <%= barrowingbook.book.name %> =>
+			<%= barrowingbook.user.email%></li><br/>
 		<br/>
 	<% end %>		
 <%end %>
+</ul>
 <br/>
 
 </div>

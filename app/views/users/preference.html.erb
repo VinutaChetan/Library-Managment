@@ -1,0 +1,27 @@
+<h2>Add Preferences</h2>
+
+<div class="container">
+
+<b><%= link_to "Back",users_path,class: "btn btn-success"%></b><br/>
+<br/>
+<%= form_for @user do |f|%>
+<% if @user.errors.any? %>
+<h4>These errors prohibited the form from being saved: %>
+<ul styli="color:red;">
+	<% @user.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+	<% end %>
+</ul>
+<% end %>
+
+
+
+<%= f.collection_check_boxes :category_ids, Category.all,:id,:name do |b| %>
+<%=b.check_box %>
+<%=b.label %>
+<% end %>
+<br/><br/>
+
+<%=f.submit%>
+<% end %>
+

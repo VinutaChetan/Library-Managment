@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160816162529) do
+ActiveRecord::Schema.define(version: 20160822105911) do
 
   create_table "barrowingbooks", force: true do |t|
     t.integer  "user_id"
@@ -50,7 +50,11 @@ ActiveRecord::Schema.define(version: 20160816162529) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "user_id"
+  end
+
+  create_table "preferences", force: true do |t|
+    t.integer "user_id"
+    t.integer "category_id"
   end
 
   create_table "reviews", force: true do |t|
@@ -76,6 +80,8 @@ ActiveRecord::Schema.define(version: 20160816162529) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "role",                   default: "user"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

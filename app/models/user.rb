@@ -3,6 +3,11 @@ class User < ActiveRecord::Base
 	has_many :categories
 	has_many :barrowingbooks
   has_many :reviews
+  has_many :preferences
+  has_many :categories ,through: :preferences
+
+  
+
 
 
   # Include default devise modules. Others available are:
