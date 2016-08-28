@@ -23,7 +23,7 @@ $(document).ready(function(){
 	
 
 		<tr><br>
-			<th>Id</th>
+			<th>Index</th>
 			<th >Books Name</th>
 		</tr>
 	</thead>
@@ -44,45 +44,9 @@ $(document).ready(function(){
 </table >
 </center>
 
-<% user_books = [] %> 
-
-<% @user.categories.each do |category| %>
- <% user_books.push(category.books.pluck(:name)) %>
-<% end %>
-
-<ol>
-<% user_books.each do |book| %>
-	<li><%= book %></li>
-<% end %> 
-</ol>
 
 
-<%cat=[]%>
-<%cat.push(@user.categories).each do |ca|%>
-<%ca.each do |c|%>
-<%c.books.each do |book|%>
-<%=book.name%><br/>
-<%end%>
-<%end%>
-<%end%>
-<br/>
 
-<%value=[]%>
-<%@user.categories.each do |ca|%>
-<%=ca.name%>
-<ul>
-<li>
-	<%ca.books.each do |book|%>
-	<%=book.name%>
-	<%end%>
-</li>
-</ul>
-<%total=value.push(ca.books)%><br/>
-<%=total%>
-<%total.each do |tol|%>
-<%tol.name%><br/>
-<%end%>
-<%end%>
 
 
 

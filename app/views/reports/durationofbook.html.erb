@@ -1,0 +1,79 @@
+<div class="container">
+
+
+<h4>Total Books Borrowed Today</h4>
+<% count=0%>
+
+
+<%@barrowingbooks.each do |barrowingbook|%>
+	<% if barrowingbook.barrowing_date == Date.today%>
+	<%=barrowingbook.id%>-------
+	<%=barrowingbook.user.email%>------
+	<%=barrowingbook.book.name%><br/>
+	<%count+=1%>
+	<%end %>
+<%end%>
+<br/>
+Total Count:<%=count%>	<br/>
+
+<h4>Total Borrowed Book in This Week</h4>
+<%count=0%>
+<%@barrowingbooks.each do |barrowingbook|%>
+	<% if barrowingbook.barrowing_date >= Date.today.beginning_of_week() && barrowingbook.barrowing_date <= Date.today.end_of_week()%>
+	<%=barrowingbook.id%>------
+	<%=barrowingbook.user.email%>------
+	<%=barrowingbook.book.name%><br/>
+	<%count+=1%>
+	<%end %>
+<%end%>
+<br/>
+Total Count:<%=count%>	<br/>
+
+<h4>Total Borrowed Book in This Month</h4>
+<%count=0%>
+<%@barrowingbooks.each do |barrowingbook|%>
+	<% if barrowingbook.barrowing_date >= Date.today.beginning_of_month() && barrowingbook.barrowing_date <= Date.today.end_of_month()  && barrowingbook.date_returned==nil%>
+		
+	<%=barrowingbook.id%>---
+	<%=barrowingbook.user.email%>----
+	<%=barrowingbook.book.name%><br/>
+	<%count+=1%>
+	<%end %>
+	
+<%end%><br/>
+Total Count:<%=count%><br/>	
+ 
+
+ <h4>Books To Be Returned Next 10 Days</h4>
+ <% count=0%>
+<%@barrowingbooks.each do |barrowingbook|%>
+	<% if barrowingbook.due_date>=Date.today && barrowingbook.date_returned==nil%>
+		<%=barrowingbook.id%>-----
+		<%=barrowingbook.user.email%>----
+		<%=barrowingbook.book.name%><br/>
+	<%count+=1%>
+	<%if count==10%>
+	<%break%>
+	<%end %>
+	<%end%>
+<%end%><br/>
+Total Count:<%=count%><br/>
+
+<h4>Total Books Added To Library This Week</h4>
+ <% count=0%>
+<%@books.each do |book|%>
+	<% if book.created_at>=Date.today.beginning_of_week() &&   book.created_at<=Date.today.end_of_week() %>
+		<%=book.id%>-----
+		<%=book.name%><br/>
+	<%count+=1%>
+	<%if count==10%>
+	<%break%>
+	<%end %>
+	<%end%>
+<%end%><br/>
+Total Count:<%=count%><br/>
+
+
+</div>	
+
+

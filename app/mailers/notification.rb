@@ -19,6 +19,17 @@ class Notification < ActionMailer::Base
 
     mail to:"#{@barrowingbook.user.email}",cc:"#{user.email}",subject:"Last date to return book!"
   end   
+ 
+ def announcement(mail_ids,user)
+    @user=user
+    mail to:"#{mail_ids}",cc:"#{user.email}",subject:"Last date to return book!"
+  end 
+
+  def greeting(announcement)
+    @announcement=announcement
+    @recipents=User.all.pluck(:email)
+    mail to:@recipents.join(","),subject:"#{@announcement.body}"
+   end 
 end
 
 

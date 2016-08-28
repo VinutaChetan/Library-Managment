@@ -105,6 +105,13 @@
               <span class="badge"><%=current_user.is_librarian? ? Barrowingbook.all.size : current_user.barrowingbooks.size %></span>
               
               <%end %>
+
+              <li><%=link_to reports_durationofbook_path do %>
+              <span calss="glyphicon glyphicon-th-list"></span>
+              Books Report
+              <%end %>
+
+
               </li>
 
 
@@ -140,6 +147,7 @@
 	            <li><%=link_to "Logout",destroy_user_session_path,method: :delete %></li>
               <li><%=link_to "Recent Borrowed Books",barrowingbooks_recentbook_path%></li>
               <li><%=link_to "Add User Preference Categories",users_path%></li>
+              <li><%=link_to "Add User Announcement",announcements_path%></li>
 
           </ul>
         </li>

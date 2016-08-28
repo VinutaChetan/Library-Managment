@@ -1,12 +1,23 @@
 <h2>Add Barrowing books</h2>
 
+
 <div class="container">
 
 
 <br/>
+
+<!--To Check the borrow limit-->
+<% collection=[] %>
+<% @barrowingbooks.each do |books| %>
+<% if books.date_returned==nil%>
+<% collection.push(books.book) %>
+<% end %>
+<% end %>
+<%if (collection.size <= 4 ) &&  %>
+
 <%= form_for @barrowingbook do |f|%>
 <% if @barrowingbook.errors.any? %>
-<h4>These errors prohibited the form from being saved: %>
+<h4>These errors prohibited the form from being saved:</h4>
 	<% @barrowingbook.errors.full_messages.each do |msg| %>
 		<li><%= msg %></li>
 	<% end %>
@@ -24,7 +35,9 @@
 
 <%=f.submit %>
 <br/>
-
+<% end %>
+<% else %>
+<p>user limit reached!!</p>
 
 <% end %>
 <br/>

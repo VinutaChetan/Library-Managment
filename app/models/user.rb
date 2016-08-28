@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :preferences
   has_many :categories ,through: :preferences
 
-  
+  has_many :announcements
 
 
 

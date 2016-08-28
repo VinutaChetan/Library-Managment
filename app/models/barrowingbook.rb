@@ -6,4 +6,5 @@ class Barrowingbook < ActiveRecord::Base
 	
 	validates_presence_of :book_id,:barrowing_date
 
+	
 end

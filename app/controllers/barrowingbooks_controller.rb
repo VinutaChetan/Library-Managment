@@ -10,23 +10,31 @@ class BarrowingbooksController < ApplicationController
 		#@clients =current_user.is_admin? ? Client.all : current_user.clients 
 	end
 	
+	
 	def create
+		
 		@barrowingbook = Barrowingbook.new(barrowingbook_params)
+		
 		@barrowingbook.barrowing_date=Date.today
 		@barrowingbook.due_date=Date.today+5.days
 
+		# @barrowingbook = Barrowingbook.all.where('id = ?',@barrowingbook.book_id)
+		# @book.update_attribute(:numbers_available, @barrowingbook.numbers_available-1)
 		
 		if @barrowingbook.save
 			redirect_to barrowingbooks_path
 		else 
 			render action: "new"
 		end
-		
-	end
+	
+	end	
+
+
 
 	def new
 		
 		@barrowingbook=current_user.barrowingbooks.new
+		@barrowingbooks = current_user.barrowingbooks
 
 		
 	end	
@@ -34,6 +42,12 @@ class BarrowingbooksController < ApplicationController
 	def show
 		#@barrowingbook=current_user.is_librarian? ? Barrowingbook.all : current_user.barrowingbooks.find(params[:id])
 		@barrowingbook = Barrowingbook.find(params[:id])
+		@bookrating=[]
+		@reviews=Review.new
+		current_user.barrowingbooks.each do |book|
+
+			@bookrating.push(book)
+		end	
 	end
 
 	def update
@@ -42,7 +56,7 @@ class BarrowingbooksController < ApplicationController
 			redirect_to barrowingbooks_path(@barrowingbook.id), notice:"successfully updated"
 		else
 		render action :"edit"
-	end
+		end
 	end	
 
 
@@ -62,7 +76,6 @@ class BarrowingbooksController < ApplicationController
 		@barrowingbook =Barrowingbook.find(params[:barrowingbook_id])
 		@barrowingbook.update_attributes(date_returned: Date.today)
 		
-
 		Notification.bookreturned(@barrowingbook,current_user).deliver!
 
 		redirect_to barrowingbooks_path,notice:"Returned the book"
@@ -71,10 +84,29 @@ class BarrowingbooksController < ApplicationController
 
 	def mailtoreturn
 		@barrowingbook =Barrowingbook.find(params[:barrowingbook_id])
+
 		Notification.booktoreturn(@barrowingbook,current_user).deliver!
 
 		redirect_to barrowingbooks_path,notice:"Successfully send the mail to Return the book"
 	end
+
+	def announce
+	mail_ids=[]
+	
+	@barrowingbook=Barrowingbook.all.where(due_date: Date.today,date_returned: nil)
+	
+	@barrowingbook.each do |book|
+
+		mail_ids.push(book.user.email)
+	end	
+	
+	mail_ids=mail_ids.join(",")
+
+	Notification.announcement(mail_ids,current_user).deliver!
+	redirect_to barrowingbooks_path,notice:"Successfully send the mail to Return the book"
+	
+	end
+
 
 
 
@@ -91,7 +123,6 @@ class BarrowingbooksController < ApplicationController
 
 	
 end
-
 
 
 

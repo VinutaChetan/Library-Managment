@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     if user.role=="librarian"
         can [:read],[] 
-        can :manage,[Category,Book,Barrowingbook,Review]
+        can :manage,[Category,Book,Barrowingbook,Review,Announcement]
     elsif user.role=="user"
         can [:read],[Category,Book]   
         can :manage,[Barrowingbook,Review,Preference,User] 

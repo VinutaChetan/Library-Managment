@@ -1,5 +1,7 @@
+<div class="container">
 <h2>Add Ratings</h2>
 
+ 
 <%= form_for @review do |f| %>
 	<% if @review.errors.any? %>
 		<h4>These errors prohibited the form from being saved: </h4>
@@ -19,11 +21,34 @@
 <br/>
 
 <lable>Rating </lable>
-<%=f.text_field :rating %><br/>
+
+<p>
+    <label class="radio-inline">
+    <%= f.radio_button :rating, '1' %> 1
+    </label>
+
+    <label class="radio-inline">
+    <%= f.radio_button :rating, '2' %> 2
+    </label>
+
+    <label class="radio-inline">
+    <%= f.radio_button :rating, '3' %> 3
+    </label>
+
+    <label class="radio-inline">
+    <%= f.radio_button :rating, '4' %> 4
+    </label>
+
+    <label class="radio-inline">
+    <%= f.radio_button :rating, '5' %> 5
+    </label>
+</p>
 <br/>
 
 <%=f.submit%>
 <% end %>
 
 <h2><%=link_to "Back" ,reviews_path,class: "btn btn-success"  %></h2>
+
+</div>
 

@@ -34,7 +34,6 @@ $(document).ready(function(){
 		<th>Categoty name</th>
 		<th>ISBN</th>
 		<th>Rating</th>
-		<th>Borrow limit</th>
 		<th>Numbers available</th>
 		<th>Actions</th>
 	</b>	
@@ -57,7 +56,6 @@ $(document).ready(function(){
 		  	<td><%= 0 %></td>
 		  <%end%>	
 		
-		  <td><%=book.borrow_limit%></td>
 
 		  <td><%=book.numbers_available%></td>
 		  <td><%=link_to book_path(book.id) do %>

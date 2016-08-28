@@ -5,9 +5,15 @@ Rails.application.routes.draw do
 
   get "barrowingbooks/returned"
   get 'barrowingbooks/mailtoreturn'
+  get 'barrowingbooks/announce'
+  
+  
   get 'barrowingbooks/recentbook'
   get 'users/preference'
   get 'users/recomended'
+  get 'users/announcement'
+
+  get 'reports/durationofbook'
   
  
 
@@ -15,7 +21,7 @@ Rails.application.routes.draw do
   resources :books
   resources :categories
   resources :preferences
-
+  resources :announcements
   
   resources :barrowingbooks
   resources :reviews

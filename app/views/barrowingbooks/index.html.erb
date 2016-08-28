@@ -16,13 +16,12 @@ $(document).ready(function(){
 <% if @barrowingbooks.empty? %>
 	<p> No Books Found </p>
 <% else %>
-<h4>Total books :<%=@barrowingbooks.size%></h4>
-
+<h3>Total books :<%=@barrowingbooks.size%></h3>
 
 <br/>
 
 
-<table class ="table table-striped",id="myTable">
+<table class ="table table-striped" id="myTable">
 <thead>
 	<tr>
 	<b>
@@ -32,12 +31,15 @@ $(document).ready(function(){
 		<th>Borrowed Date</th>
 		<th>Due Date</th>
 		<th>Date Returned</th>
-		<th>Price</th>
+		<th>Fine Amount</th>
+		<th>Number of Books Borrowed</th>
 		<th>Actions</th>
 	</b>	
 	</tr>
 </thead>
 <tbody>
+<%limit=0%>
+<%sum=0%>
 	<%@barrowingbooks.each_with_index do |barrowingbook,index|%>
 	<tr>
 		<td> <%=index+1 %></td>
@@ -46,11 +48,15 @@ $(document).ready(function(){
 		  <td><%=barrowingbook.barrowing_date %></td>
 		  <td><%=barrowingbook.due_date%></td>
 		  <td><%=barrowingbook.date_returned %></td>
+
 		  <% if Date.today>barrowingbook.due_date && barrowingbook.date_returned ==nil  %>
+		  	<% sum+= 5*(Date.today-barrowingbook.due_date).to_i%>
 		  	<td><%= 5*(Date.today-barrowingbook.due_date).to_i%></td>
+
 		  <% else %>
 		  	<td> 0 </td>	
 		  <% end %>	
+		  <td><%=limit+=1%></td>
 		  
 		  <td><%=link_to barrowingbook_path(barrowingbook.id) do %>
 		  	<span class="glyphicon glyphicon-eye-open"></span>
@@ -61,6 +67,12 @@ $(document).ready(function(){
 	<%end%>
 </tbody>
 </table >
+<% end %>
+
+
+<% if current_user.role == "librarian"%>
+
+<h3>Total fine amount to be collected :<%=sum%></h3>
 <% end %>
 
 
@@ -77,19 +89,46 @@ $(document).ready(function(){
 	<% if (date < Date.today) && barrowingbook.date_returned==nil %>
 		<li><%= barrowingbook.book.name %>=>
 		<%= barrowingbook.user.email%></li><br/>
-		<br/>
+	<%else %>
+		No Over Due Books
+		<% break %>	
 	<% end %>
 <% end %>
 
+<ul>
 <h3>Last Date To Return</h3>
 <%@barrowingbooks.each do |barrowingbook|%>
 	<% date = barrowingbook.due_date%>
 	<%if (date==Date.today) && barrowingbook.date_returned==nil%>
 		<li><%=barrowingbook.book.name%> =>
-		<%=link_to barrowingbook.user.email,barrowingbook_path(barrowingbook.id)%></li><br/>
-	<%end%>
-<%end%>	
+		<%=link_to barrowingbook.user.email,barrowingbook_path(barrowingbook.id)%></li>
+	
+	<% else %>
+	  No books to return today
+	 <% break%>
+	 <%end%>
+	  
 
+<% if current_user.role=="librarian"%>
+	<%if barrowingbook.date_returned == nil%>
+		<%if barrowingbook.due_date ==Date.today%>
+			<h4>Today is Due Date</h4>
+			<%= link_to "Notification",barrowingbooks_mailtoreturn_path(barrowingbook_id: barrowingbook.id) %><br/>
+			------------------------------------
+			<br/>
+		<%end%>
+	<%end%>		
+<%end%>	
+<%end%>
+</ul>
+<br/>
+
+
+<h2>To send mail to all due date users</h2>
+<% if current_user.role=="librarian"%>
+<%=link_to "Announcement",barrowingbooks_announce_path%>
+<% end %><br/>
+<br/>
 
 <h3>Still Valid Books</h3>
 <%@barrowingbooks.each do |barrowingbook|%>	

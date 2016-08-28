@@ -1,0 +1,32 @@
+<div class="container">
+<h1>Listing Announcements</h1>
+<h2>Total Announcements :<%=@announcements.size %></h2>
+<%if @announcements.empty? %>
+	<p>No announcement found </p>
+<%else %>
+	<table class ="table table-striped">
+	<thead>
+		<tr>
+			<th>Index</th>
+			<th>Title</th>
+			<th>Body</th>
+					
+		</tr>
+	</thead>
+	<tbody>
+	<%@announcements.each_with_index do |announcement,index| %>
+		<tr>
+			<td><%=index+1%></td>
+			<td><%=announcement.title %></td>
+			<td><%=announcement.body %></td>
+			
+		</tr>
+		<%end%>	
+	</tbody>
+</table>
+<%end %>
+
+<%if current_user.role=="librarian"%>
+<%= link_to 'Add announcement', new_announcement_path,class: "btn btn-primary" %>
+<%end%>
+</div>
