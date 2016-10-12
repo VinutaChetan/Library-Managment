@@ -8,12 +8,16 @@
 
 <!--To Check the borrow limit-->
 <% collection=[] %>
+
 <% @barrowingbooks.each do |books| %>
-<% if books.date_returned==nil%>
+
+<% if books.date_returned==nil %>
+
 <% collection.push(books.book) %>
 <% end %>
 <% end %>
-<%if (collection.size <= 4 ) &&  %>
+
+<%if (collection.size <= 4 )   %>
 
 <%= form_for @barrowingbook do |f|%>
 <% if @barrowingbook.errors.any? %>
@@ -34,12 +38,14 @@
 
 
 <%=f.submit %>
+
 <br/>
 <% end %>
 <% else %>
 <p>user limit reached!!</p>
 
 <% end %>
+
 <br/>
 <b><%= link_to "Back",barrowingbooks_path,class: "btn btn-success"%></b><br/>
 

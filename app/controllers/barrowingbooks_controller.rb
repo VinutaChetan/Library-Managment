@@ -17,29 +17,36 @@ class BarrowingbooksController < ApplicationController
 		
 		@barrowingbook.barrowing_date=Date.today
 		@barrowingbook.due_date=Date.today+5.days
+        if @barrowingbook.book.numbers_available != 0
+		numbers_available = @barrowingbook.book.numbers_available 
+		numbers = ( numbers_available - 1)
+		@barrowingbook.book.update_attributes(:numbers_available => numbers)
+	    
+	    	
 
+		end
 		# @barrowingbook = Barrowingbook.all.where('id = ?',@barrowingbook.book_id)
 		# @book.update_attribute(:numbers_available, @barrowingbook.numbers_available-1)
 		
 		if @barrowingbook.save
 			redirect_to barrowingbooks_path
 		else 
-			render action: "new"
+			render action: "new" 
 		end
-	
 	end	
+
 
 
 
 	def new
 		
-		@barrowingbook=current_user.barrowingbooks.new
-		@barrowingbooks = current_user.barrowingbooks
-
+			@barrowingbook=current_user.barrowingbooks.new
+			@barrowingbooks = current_user.barrowingbooks
 		
 	end	
 
 	def show
+		@book_reviews = Review.all
 		#@barrowingbook=current_user.is_librarian? ? Barrowingbook.all : current_user.barrowingbooks.find(params[:id])
 		@barrowingbook = Barrowingbook.find(params[:id])
 		@bookrating=[]
@@ -75,6 +82,10 @@ class BarrowingbooksController < ApplicationController
 		
 		@barrowingbook =Barrowingbook.find(params[:barrowingbook_id])
 		@barrowingbook.update_attributes(date_returned: Date.today)
+
+		numbers_available = @barrowingbook.book.numbers_available 
+		numbers = ( numbers_available+1)
+		@barrowingbook.book.update_attributes(:numbers_available => numbers)
 		
 		Notification.bookreturned(@barrowingbook,current_user).deliver!
 

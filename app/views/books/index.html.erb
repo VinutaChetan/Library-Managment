@@ -31,7 +31,6 @@ $(document).ready(function(){
 		<th>Author name</th>
 		<th>pages</th>
 		<th>Description</th>
-		<th>Categoty name</th>
 		<th>ISBN</th>
 		<th>Rating</th>
 		<th>Numbers available</th>
@@ -48,7 +47,7 @@ $(document).ready(function(){
 		  <td><%=book.author_name%></td>
 		  <td><%=book.pages%></td>
 		  <td><%=book.description%></td>
-		  <td><%=book.category_name%></td>
+		  
 		  <td><%=book.isbn%></td>
 		  <% if (book.reviews.count) != 0 %>
 			<td><%=(book.reviews.sum(:rating)/(book.reviews.count)) %></td>

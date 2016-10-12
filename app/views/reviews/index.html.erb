@@ -29,11 +29,12 @@ $(document).ready(function(){
 	</tr>
 </thead>
 
-<%@reviews.each do |review| %>
+<% @reviews.each do |review| %>
 <tr>
 	<td><%=review.user.first_name%></td>
 	<td><%=review.user.email%></td>
-	<td><%=review.book.name%></td>
+	<td><%= review.book.try(:name) %></td>
+	
 	<td><%=review.body%></td>
 	<td><%=review.rating%></td>
 	<td><%=link_to review_path(review.id) do %>
